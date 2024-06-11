@@ -210,8 +210,8 @@
             </ul>
           </li>
           <!-- Manajemen Keuangan -->
-          <li class="nav-item has-treeview mb-12">
-            <a href="#" class="nav-link">
+          <li class="nav-item has-treeview {{ Request::is('payments*') ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ Request::is('payments*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-wallet"></i>
               <p>
                 Manajemen Keuangan
@@ -220,17 +220,10 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Contoh 1</p>
+                <a href="{{ route('listPayments') }}" class="nav-link {{ Request::is('payments*') ? 'active' : '' }}">
+                  <p>Kelola Pembayaran</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <p>Contoh 2</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <!-- Laporan -->
           <li class="nav-item has-treeview mb-12">
             <a href="#" class="nav-link">

@@ -79,6 +79,10 @@ Route::delete('/teaching_schedules/{teaching_schedule}/delete', [TeachingSchedul
 
 
 // Payment Routes
+Route::get('/payments', [PaymentController::class, 'index'])->name('listPayments');
+Route::get('/payments/create', [PaymentController::class, 'create'])->name('createPayments');
+Route::post('/payments', [PaymentController::class, 'store'])->name('storePayments');
+Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('showPayments');
 // Route::get('payments/trashed', [PaymentController::class, 'trashed'])->name('payments.trashed');
 // Route::get('/payments/search', 'PaymentController@search')->name('payments.search');
 
