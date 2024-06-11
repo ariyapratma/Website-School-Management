@@ -11,8 +11,10 @@ class Teachers extends Model
     
     protected $fillable = [
         'name',
+        'teacher_id',
         'specialization',
         'phone_number',
+        'address',
         'email',
     ];
     

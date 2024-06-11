@@ -36,6 +36,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'student_id' => 'required|unique:students',
             'class' => 'required',
             'birth_date' => 'required|date',
             'address' => 'required',
@@ -71,6 +72,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'student_id' => 'required|unique:students,student_id,' . $student->id,
             'class' => 'required',
             'birth_date' => 'required|date',
             'address' => 'required',
@@ -92,6 +94,10 @@ class StudentController extends Controller
 
     public function import(Request $request)
     {
+        $request->validate([
+            'excel_file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
         $file = $request->file('excel_file');
 
         try {
@@ -104,7 +110,4 @@ class StudentController extends Controller
             return redirect()->route('listStudents')->with('error', 'Terjadi kesalahan saat mengimpor data.');
         }
     }
-
-
-
 }

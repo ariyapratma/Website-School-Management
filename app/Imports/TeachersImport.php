@@ -2,13 +2,18 @@
 
 namespace App\Imports;
 
-use App\Models\Students;
+use App\Models\Teachers;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Log;
 
-class StudentsImport implements ToModel, WithHeadingRow
+class TeachersImport implements ToModel, WithHeadingRow
 {
+    /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
     public function model(array $row)
     {
         // Clean column names by removing trailing single quotes
@@ -27,13 +32,12 @@ class StudentsImport implements ToModel, WithHeadingRow
             return null; // Skip this row if 'name' is missing or null
         }
 
-        return new Students([
-            'name' => $cleanedRow['name'],
-            'student_id' => $cleanedRow['student_id'],
-            'class' => $cleanedRow['class'] ?? null,
-            'birth_date' => $cleanedRow['birth_date'] ?? null,
-            'address' => $cleanedRow['address'] ?? null,
-            'phone_number' => $cleanedRow['phone_number'] ?? null,
+        return new Teachers([
+            'name' => $row['name'],
+            'class' => $row['class'],
+            'birth_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['birth_date']),
+            'address' => $row['address'],
+            'phone_number' => $row['phone_number'],
         ]);
     }
 }

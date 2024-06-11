@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teachers;
-use App\Models\TeachingSchedules;
 use Illuminate\Http\Request;
+use App\Imports\TeachersImport;
+use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\TeachingSchedules;
 
 class TeacherController extends Controller
 {
@@ -34,8 +37,10 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'teacher_id' => 'required',
             'specialization' => 'required',
             'phone_number' => 'required|max:15',
+            'address' => 'required',
             'email' => 'required|email|unique:teachers,email',
         ]);
 
@@ -68,8 +73,10 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'teacher_id' => 'required',
             'specialization' => 'required',
             'phone_number' => 'required|max:15',
+            'address' => 'required',
             'email' => 'required|email|unique:teachers,email,' . $teacher->id,
         ]);
 
@@ -86,5 +93,20 @@ class TeacherController extends Controller
         TeachingSchedules::where('teacher_id', $teacher->id)->delete();
         $teacher->delete();
         return redirect()->route('listTeachers')->with('success', 'Teacher Deleted Successfully');
+    }
+
+    public function importTeachers (Request $request)
+    {
+        $file = $request->file('excel_file');
+
+        try {
+            Excel::import(new TeachersImport, $file);
+            return redirect()->route('listTeachers')->with('success', 'Data berhasil diimpor.');
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Import Error: ' . $e->getMessage());
+            Log::error('File Path: ' . $file->getPathname());
+            return redirect()->route('listTeachers')->with('error', 'Terjadi kesalahan saat mengimpor data.');
+        }
     }
 }
