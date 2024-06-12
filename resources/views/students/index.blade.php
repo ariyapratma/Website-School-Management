@@ -13,9 +13,10 @@
             position: absolute;
             right: 15px;
             top: 15px;
-            z-index: 1051; /* Set higher z-index */
+            z-index: 1051;
+            /* Set higher z-index */
         }
-    </style>    
+    </style>
 @endsection
 
 @section('addJavascript')
