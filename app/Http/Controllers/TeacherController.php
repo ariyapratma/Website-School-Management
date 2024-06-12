@@ -8,6 +8,7 @@ use App\Imports\TeachersImport;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\TeachingSchedules;
+use Illuminate\Support\Facades\File;
 
 class TeacherController extends Controller
 {
@@ -37,7 +38,7 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'teacher_id' => 'required',
+            'teacher_id' => 'required|unique:teachers',
             'specialization' => 'required',
             'phone_number' => 'required|max:15',
             'address' => 'required',
@@ -73,7 +74,7 @@ class TeacherController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'teacher_id' => 'required',
+            'teacher_id' => 'required|unique:students,student_id,' . $teacher->id,
             'specialization' => 'required',
             'phone_number' => 'required|max:15',
             'address' => 'required',
@@ -95,18 +96,37 @@ class TeacherController extends Controller
         return redirect()->route('listTeachers')->with('success', 'Teacher Deleted Successfully');
     }
 
-    public function importTeachers (Request $request)
-    {
-        $file = $request->file('excel_file');
+     /**
+     * Import teachers from an Excel file.
+     */
 
-        try {
-            Excel::import(new TeachersImport, $file);
-            return redirect()->route('listTeachers')->with('success', 'Data berhasil diimpor.');
-        } catch (\Exception $e) {
-            // Log the error for debugging
-            Log::error('Import Error: ' . $e->getMessage());
-            Log::error('File Path: ' . $file->getPathname());
-            return redirect()->route('listTeachers')->with('error', 'Terjadi kesalahan saat mengimpor data.');
-        }
-    }
+     public function importTeachers(Request $request)
+     {
+         $request->validate([
+             'excel_file' => 'required|file|mimes:xlsx,xls',
+         ]);
+ 
+         $file = $request->file('excel_file');
+ 
+         // Ensure the directory exists
+         $directoryPath = public_path('Teachers_Import_Data');
+         if (!file_exists($directoryPath)) {
+             mkdir($directoryPath, 0777, true);
+         }
+ 
+         // Save the file to the specified folder
+         $path = $file->move($directoryPath, $file->getClientOriginalName());
+ 
+         try {
+             // Import the file from the storage path
+             Excel::import(new TeachersImport, $path);
+             return redirect()->route('listTeachers')->with('success', 'Data Is Imported Successfully');
+         } catch (\Exception $e) {
+             // Log the error for debugging
+             Log::error('Import Error: ' . $e->getMessage());
+             Log::error('File Path: ' . $path);
+             return redirect()->route('listTeachers')->with('error', 'An Error Occurred While Importing Data');
+         }
+     }
+
 }

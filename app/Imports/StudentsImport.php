@@ -21,10 +21,13 @@ class StudentsImport implements ToModel, WithHeadingRow
         // Log the cleaned row for debugging
         Log::info('Imported Row: ', $cleanedRow);
 
-        // Check if 'name' key exists and is not null
-        if (!isset($cleanedRow['name']) || is_null($cleanedRow['name'])) {
-            Log::error('Missing or null name field in row: ', $cleanedRow);
-            return null; // Skip this row if 'name' is missing or null
+        // Check if required keys exist and are not null
+        $requiredKeys = ['name', 'student_id', 'class', 'birth_date', 'address', 'phone_number'];
+        foreach ($requiredKeys as $key) {
+            if (!isset($cleanedRow[$key]) || is_null($cleanedRow[$key])) {
+                Log::error("Missing or null field '{$key}' in row: ", $cleanedRow);
+                return null; // Skip this row if any required field is missing or null
+            }
         }
 
         return new Students([

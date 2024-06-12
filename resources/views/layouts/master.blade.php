@@ -41,13 +41,8 @@
                 </li>
                 <li class="nav-item d-flex align-items-center flex-grow-1">
                     <div class="input-group">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                            aria-label="Search" style="flex-grow: 1;">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
+                        <input class="form-control form-control-navbar" type="search"
+                            placeholder="{{ $title ?? 'SMK Gamelab' }}" aria-label="Search" style="flex-grow: 1;">
                     </div>
                 </li>
             </ul>
@@ -123,7 +118,7 @@
             <a href="{{ route('home') }}" class="brand-link">
                 <img src="{{ asset('assets/dist/img/Smk_Gamelab.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">{{ $title ?? 'SMK Gamelab' }}</span>
+                <span class="brand-text font-weight-light">SMK Gamelab</span>
             </a>
 
             <!-- Sidebar -->

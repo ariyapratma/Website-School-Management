@@ -38,7 +38,6 @@ Route::put('/students/{student}', [StudentController::class, 'update'])->name('u
 Route::delete('/students/{student}/delete', [StudentController::class, 'destroy'])->name('deleteStudents');
 Route::post('/students/importStudents', [StudentController::class, 'importStudents'])->name('importStudents');
 
-
 // Teacher Routes
 Route::get('/teachers', [TeacherController::class, 'index'])->name('listTeachers');
 Route::get('/teachers/create', [TeacherController::class, 'create'])->name('createTeachers');
@@ -47,8 +46,7 @@ Route::get('/teachers/{teacher}', [TeacherController::class, 'show'])->name('sho
 Route::get('/teachers/{teacher}/edit', [TeacherController::class, 'edit'])->name('editTeachers');
 Route::put('/teachers/{teacher}', [TeacherController::class, 'update'])->name('updateTeachers');
 Route::delete('/teachers/{teacher}/delete', [TeacherController::class, 'destroy'])->name('deleteTeachers');
-Route::post('/teachers/import-teachers', [TeacherController::class, 'importTeachers'])->name('importTeachers');
-
+Route::post('/teachers/importTeachers', [TeacherController::class, 'importTeachers'])->name('importTeachers');
 
 // Attendance Routes
 Route::get('/attendances', [AttendanceController::class, 'index'])->name('listAttendances');
@@ -76,7 +74,6 @@ Route::get('/teaching_schedules/{teaching_schedule}', [TeachingScheduleControlle
 Route::get('/teaching_schedules/{teaching_schedule}/edit', [TeachingScheduleController::class, 'edit'])->name('editTeachingschedules');
 Route::put('/teaching_schedules/{teaching_schedule}', [TeachingScheduleController::class, 'update'])->name('updateTeachingschedules');
 Route::delete('/teaching_schedules/{teaching_schedule}/delete', [TeachingScheduleController::class, 'destroy'])->name('deleteTeachingschedules');
-
 
 // Payment Routes
 Route::get('/payments', [PaymentController::class, 'index'])->name('listPayments');

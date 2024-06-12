@@ -9,6 +9,16 @@
 @section('addCss')
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <style>
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .action-buttons a,
+        .action-buttons button {
+            margin: 0 2px;
+        }
+
         .modal-close-btn {
             position: absolute;
             right: 15px;
@@ -27,11 +37,6 @@
         $(function() {
             $("#data-table").DataTable();
         });
-
-        // Function to handle import modal opening
-        function openImportModal() {
-            $('#importModal').modal('show');
-        }
     </script>
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script>
@@ -80,7 +85,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h1>Siswa SMK Gamelab</h1>
                     <div>
-                        <button class="btn btn-primary mr-2" onclick="openImportModal()">Import Excel</button>
+                        <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#importModal">Import
+                            Excel</button>
                         <a href="{{ route('createStudents') }}" class="btn btn-primary">Tambah Siswa</a>
                     </div>
                 </div>
@@ -91,7 +97,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="importModalLabel">Import Students Excel File</h5>
+                                <h5 class="modal-title" id="importModalLabel">Import Siswa Excel File</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -100,13 +106,13 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <label for="excel_file">Choose Excel File</label>
+                                        <label for="excel_file">Pilih Excel File</label>
                                         <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls"
                                             class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                     <button type="submit" class="btn btn-primary">Import</button>
                                 </div>
                             </form>

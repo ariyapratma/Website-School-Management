@@ -103,18 +103,24 @@ class StudentController extends Controller
 
         $file = $request->file('excel_file');
 
+        // Ensure the directory exists
+        $directoryPath = public_path('Students_Import_Data');
+        if (!file_exists($directoryPath)) {
+            mkdir($directoryPath, 0777, true);
+        }
+
         // Save the file to the specified folder
-        $path = $file->storeAs('Students_Import_Data', $file->getClientOriginalName(), 'public');
+        $path = $file->move($directoryPath, $file->getClientOriginalName());
 
         try {
             // Import the file from the storage path
-            Excel::import(new StudentsImport, public_path('storage/Students_Import_Data/' . $file->getClientOriginalName()));
-            return redirect()->route('listStudents')->with('success', 'Data berhasil diimpor.');
+            Excel::import(new StudentsImport, $path);
+            return redirect()->route('listStudents')->with('success', 'Data Is Imported Successfully');
         } catch (\Exception $e) {
             // Log the error for debugging
             Log::error('Import Error: ' . $e->getMessage());
-            Log::error('File Path: ' . public_path('storage/Students_Import_Data/' . $file->getClientOriginalName()));
-            return redirect()->route('listStudents')->with('error', 'Terjadi kesalahan saat mengimpor data.');
+            Log::error('File Path: ' . $path);
+            return redirect()->route('listStudents')->with('error', 'An Error Occurred While Importing Data');
         }
     }
 }
