@@ -16,9 +16,9 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listTeachingschedules') }}">Teaching Schedules</a>
+                            <li class="breadcrumb-item"><a href="{{ route('listTeachingschedules') }}">Jadwal Mengajar Guru</a>
                             </li>
-                            <li class="breadcrumb-item active">Teaching Schedules Details</li>
+                            <li class="breadcrumb-item active">Detail Jadwal Mengajar Guru</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -29,37 +29,37 @@
         <!-- Main content -->
         <div class="content">
             <div class="container mt-5">
-                <h1 class="mt-5">Teaching Schedules Details</h1>
+                <h1 class="mt-5">Detail Jadwal Mengajar Guru</h1>
                 <div class="card bg-white">
                     <div class="card-body">
                         <table class="table table-bordered bg-white">
                             <tr>
-                                <th>Teacher</th>
+                                <th>Nama Guru</th>
                                 <td>{{ $teachingSchedule->teacher->name }}</td>
                             </tr>
                             <tr>
-                                <th>Teacher ID</th>
+                                <th>Nomor Unik Guru</th>
                                 <td>{{ $teachingSchedule->teacher->teacher_id }}</td>
                             </tr>
                             <tr>
-                                <th>Subject</th>
+                                <th>Subyek</th>
                                 <td>{{ $teachingSchedule->subject }}</td>
                             </tr>
                             <tr>
-                                <th>Teaching Day</th>
+                                <th>Hari Mengajar</th>
                                 <td>{{ $teachingSchedule->teaching_day }}</td>
                             </tr>
                             <tr>
-                                <th>Start Time</th>
+                                <th>Waktu Mulai</th>
                                 <td>{{ Carbon::parse($teachingSchedule->start_time)->format('H:i') }}</td>
                             </tr>
                             <tr>
-                                <th>End Time</th>
+                                <th>Waktu Selesai</th>
                                 <td>{{ Carbon::parse($teachingSchedule->end_time)->format('H:i') }}</td>
                             </tr>
                         </table>
                         <br>
-                        <a href="{{ route('listTeachingschedules') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('listTeachingschedules') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                 </div>
             </div>

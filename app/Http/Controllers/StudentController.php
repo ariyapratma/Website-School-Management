@@ -92,7 +92,10 @@ class StudentController extends Controller
         return redirect()->route('listStudents')->with('success', 'Student Deleted Successfully');
     }
 
-    public function import(Request $request)
+     /**
+     * Import students from an Excel file.
+     */
+    public function importStudents(Request $request)
     {
         $request->validate([
             'excel_file' => 'required|file|mimes:xlsx,xls',
@@ -100,14 +103,19 @@ class StudentController extends Controller
 
         $file = $request->file('excel_file');
 
+        // Save the file to the specified folder
+        $path = $file->storeAs('Students_Import_Data', $file->getClientOriginalName(), 'public');
+
         try {
-            Excel::import(new StudentsImport, $file);
+            // Import the file from the storage path
+            Excel::import(new StudentsImport, public_path('storage/Students_Import_Data/' . $file->getClientOriginalName()));
             return redirect()->route('listStudents')->with('success', 'Data berhasil diimpor.');
         } catch (\Exception $e) {
             // Log the error for debugging
             Log::error('Import Error: ' . $e->getMessage());
-            Log::error('File Path: ' . $file->getPathname());
+            Log::error('File Path: ' . public_path('storage/Students_Import_Data/' . $file->getClientOriginalName()));
             return redirect()->route('listStudents')->with('error', 'Terjadi kesalahan saat mengimpor data.');
         }
     }
 }
+

@@ -15,8 +15,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listStudents') }}">Students</a></li>
-                            <li class="breadcrumb-item active">Add Student</li>
+                            <li class="breadcrumb-item"><a href="{{ route('listStudents') }}">Siswa</a></li>
+                            <li class="breadcrumb-item active">Tambah Siswa</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,35 +27,40 @@
         <!-- Main content -->
         <div class="content">
             <div class="container mt-5">
-                <h1 class="mt-5">Add Student</h1>
+                <h1 class="mt-5">Tambah Siswa</h1>
                 <form action="{{ route('storeStudents') }}" method="POST">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Nama Siswa <span class="text-danger">*</span></label>
                         <input type="text" name="name" class="form-control" id="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="student_id">Student ID</label>
+                        <label for="student_id">Nomor Induk Siswa <span class="text-danger">*</span></label>
                         <input type="text" name="student_id" class="form-control" id="student_id" required>
                     </div>
                     <div class="form-group">
-                        <label for="class">Class</label>
-                        <input type="text" name="class" class="form-control" id="class" required>
+                        <label for="class">Kelas <span class="text-danger">*</span></label>
+                        <select class="form-control" id="class" name="class" required>
+                            <option selected disabled>Pilih Kelas</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="birth_date">Birth Date</label>
+                        <label for="birth_date">Tanggal Kelahiran <span class="text-danger">*</span></label>
                         <input type="date" name="birth_date" class="form-control" id="birth_date" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Alamat <span class="text-danger">*</span></label>
                         <textarea name="address" class="form-control" id="address" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="phone_number">Phone Number</label>
+                        <label for="phone_number">Nomor Telepon <span class="text-danger">*</span></label>
                         <input type="text" name="phone_number" class="form-control" id="phone_number" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add</button>
-                    <a href="{{ route('listStudents') }}" class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <a href="{{ route('listStudents') }}" class="btn btn-secondary">Kembali</a>
                 </form>
             </div>
         </div>

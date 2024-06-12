@@ -49,6 +49,13 @@
             });
         }
     </script>
+    <script>
+        document.getElementById('amount').addEventListener('input', function(e) {
+            let value = e.target.value;
+            value = value.replace(/\D/g, ''); // Remove all non-digit characters
+            e.target.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Add thousand separator
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -64,7 +71,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Payments</li>
+                            <li class="breadcrumb-item active">Pembayaran</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -75,11 +82,11 @@
         <div class="content">
             <div class="container mt-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1>Payments SMK Gamelab</h1>
+                    <h1>Pembayaran SMK Gamelab</h1>
                     <div>
                         <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#importModal">Import
                             Excel</button>
-                        <a href="{{ route('createPayments') }}" class="btn btn-primary">Add Payment</a>
+                        <a href="{{ route('createPayments') }}" class="btn btn-primary">Tambah Pembayaran</a>
                     </div>
                 </div>
 
@@ -95,18 +102,18 @@
                                 </button>
                             </div>
                             {{-- <form action="{{ route('importStudents') }}" method="POST" enctype="multipart/form-data"> --}}
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="excel_file">Choose Excel File</label>
-                                        <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls"
-                                            class="form-control" required>
-                                    </div>
+                            @csrf
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="excel_file">Choose Excel File</label>
+                                    <input type="file" name="excel_file" id="excel_file" accept=".xlsx, .xls"
+                                        class="form-control" required>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Import</button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </div>
                             </form>
                         </div>
                     </div>
@@ -121,12 +128,13 @@
                                     <th>No</th>
                                     <th>Nama Siswa</th>
                                     <th>Nomor Induk Siswa</th>
+                                    <th>Kelas</th>
                                     <th>Tahun Akademik</th>
                                     <th>Jenis Pembayaran</th>
                                     <th>Jumlah</th>
                                     <th>Tanggal</th>
-                                    <th>Deskripsi</th>
                                     <th>Status</th>
+                                    <th>Deskripsi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -136,28 +144,34 @@
                                         <td>{{ $loop->index + 1 }}</td>
                                         <td>{{ $payment->student->name }}</td>
                                         <td>{{ $payment->student->student_id }}</td>
+                                        <td>{{ $payment->student->class }}</td>
                                         <td>{{ $payment->academic_year }}</td>
-                                        <td>{{ implode(', ', $payment->payment_type) }}</td>
+                                        <td>{{ implode(', ', array_map('ucfirst', $payment->payment_type)) }}</td>
                                         <td>Rp {{ number_format($payment->amount, 0, ',', '.') }}</td>
                                         <td>{{ $payment->payment_date->format('d-m-Y') }}</td>
-                                        <td>{{ $payment->description }}</td>
                                         <td>{{ $payment->status ? 'Lunas' : 'Belum Lunas' }}</td>
+                                        <td>{{ $payment->description }}</td>
                                         <td>
-                                          <div class="d-flex justify-content-around">
-                                              <a href="{{ route('showPayments', $payment->id) }}" class="btn btn-info btn-sm mx-1">
-                                                  <i class="fas fa-eye"></i>
-                                              </a>
-                                              {{-- <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-warning btn-sm mx-1">
-                                                  <i class="fas fa-edit"></i>
-                                              </a> --}}
-                                              {{-- <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" class="mx-1">
-                                                  @csrf
-                                                  @method('DELETE')
-                                                  <button type="submit" class="btn btn-danger btn-sm">
-                                                      <i class="fas fa-trash-alt"></i>
-                                                  </button>
-                                              </form> --}}
-                                          </div>
+                                            <div class="action-buttons">
+                                                <a href="{{ route('showPayments', $payment->id) }}"
+                                                    class="btn btn-info btn-sm">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ route('editPayments', $payment) }}"
+                                                    class="btn btn-warning btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <a href="#" onclick="confirmDelete(this)"
+                                                    data-url="{{ route('deletePayments', ['payment' => $payment->id]) }}"
+                                                    class="btn btn-danger btn-sm">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                                <!-- Form Delete -->
+                                                <form id="delete-form" method="POST" style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

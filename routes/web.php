@@ -36,7 +36,7 @@ Route::get('/students/{student}', [StudentController::class, 'show'])->name('sho
 Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('editStudents');
 Route::put('/students/{student}', [StudentController::class, 'update'])->name('updateStudents');
 Route::delete('/students/{student}/delete', [StudentController::class, 'destroy'])->name('deleteStudents');
-Route::post('/students/import', [StudentController::class, 'import'])->name('importStudents');
+Route::post('/students/importStudents', [StudentController::class, 'importStudents'])->name('importStudents');
 
 
 // Teacher Routes
@@ -83,6 +83,9 @@ Route::get('/payments', [PaymentController::class, 'index'])->name('listPayments
 Route::get('/payments/create', [PaymentController::class, 'create'])->name('createPayments');
 Route::post('/payments', [PaymentController::class, 'store'])->name('storePayments');
 Route::get('/payments/{payment}', [PaymentController::class, 'show'])->name('showPayments');
+Route::get('/payments/{payment}/edit', [PaymentController::class, 'edit'])->name('editPayments');
+Route::put('/payments/{payment}', [PaymentController::class, 'update'])->name('updatePayments');
+Route::delete('/payments/{payment}/delete', [PaymentController::class, 'destroy'])->name('deletePayments');
 // Route::get('payments/trashed', [PaymentController::class, 'trashed'])->name('payments.trashed');
 // Route::get('/payments/search', 'PaymentController@search')->name('payments.search');
 

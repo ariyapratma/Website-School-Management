@@ -15,8 +15,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listGrades') }}">Grades</a></li>
-                            <li class="breadcrumb-item active">Grade Details</li>
+                            <li class="breadcrumb-item"><a href="{{ route('listGrades') }}">Nilai</a></li>
+                            <li class="breadcrumb-item active">Detail Nilai</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -31,28 +31,28 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th>Student</th>
+                            <th>Nama Siswa</th>
                             <td>{{ $grade->student->name }}</td>
                         </tr>
                         <tr>
-                            <th>Student ID</th>
+                            <th>Nomor Induk Siswa</th>
                             <td>{{ $grade->student->student_id }}</td>
                         </tr>
                         <tr>
-                            <th>Class</th>
+                            <th>Kelas</th>
                             <td>{{ $grade->student->class }}</td>
                         </tr>
                         <tr>
-                            <th>Subject</th>
+                            <th>Subyek</th>
                             <td>{{ $grade->subject }}</td>
                         </tr>
                         <tr>
-                            <th>Grade</th>
+                            <th>Nilai</th>
                             <td>{{ $grade->grade }}</td>
                         </tr>
                     </table>
                     <br>
-                    <a href="{{ route('listGrades') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ route('listGrades') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </div>
         </div>

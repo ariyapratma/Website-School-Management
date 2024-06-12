@@ -30,10 +30,10 @@ class StudentsImport implements ToModel, WithHeadingRow
         return new Students([
             'name' => $cleanedRow['name'],
             'student_id' => $cleanedRow['student_id'],
-            'class' => $cleanedRow['class'] ?? null,
-            'birth_date' => $cleanedRow['birth_date'] ?? null,
-            'address' => $cleanedRow['address'] ?? null,
-            'phone_number' => $cleanedRow['phone_number'] ?? null,
+            'class' => $cleanedRow['class'],
+            'birth_date' => $cleanedRow['birth_date'],
+            'address' => $cleanedRow['address'],
+            'phone_number' => $cleanedRow['phone_number'],
         ]);
     }
 }

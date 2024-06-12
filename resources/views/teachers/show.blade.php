@@ -15,8 +15,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listTeachers') }}">Teachers</a></li>
-                            <li class="breadcrumb-item active">Teacher Details</li>
+                            <li class="breadcrumb-item"><a href="{{ route('listTeachers') }}">Guru</a></li>
+                            <li class="breadcrumb-item active">Detail Guru</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,28 +27,28 @@
         <!-- Main content -->
         <div class="content">
             <div class="container mt-5">
-                <h1 class="mt-5">Teacher Details</h1>
+                <h1 class="mt-5">Detail Guru</h1>
                 <div class="card bg-white">
                     <div class="card-body">
                         <table class="table table-bordered bg-white">
                             <tr>
-                                <th>Name</th>
+                                <th>Nama Guru</th>
                                 <td>{{ $teacher->name }}</td>
                             </tr>
                             <tr>
-                                <th>Teacher ID</th>
+                                <th>Nomor Unik Guru</th>
                                 <td>{{ $teacher->teacher_id }}</td>
                             </tr>
                             <tr>
-                                <th>Specialization</th>
+                                <th>Spesialisasi</th>
                                 <td>{{ $teacher->specialization }}</td>
                             </tr>
                             <tr>
-                                <th>Phone Number</th>
+                                <th>Nomor Telefon</th>
                                 <td>{{ $teacher->phone_number }}</td>
                             </tr>
                             <tr>
-                                <th>Address</th>
+                                <th>Alamat</th>
                                 <td>{{ $teacher->address }}</td>
                             </tr>
                             <tr>
@@ -57,7 +57,7 @@
                             </tr>
                         </table>
                         <br>
-                        <a href="{{ route('listTeachers') }}" class="btn btn-secondary">Back</a>
+                        <a href="{{ route('listTeachers') }}" class="btn btn-secondary">Kembali</a>
                     </div>
                 </div>
             </div>

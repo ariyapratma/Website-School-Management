@@ -18,8 +18,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listAttendances') }}">Attendances</a></li>
-                            <li class="breadcrumb-item active">Attendance Details</li>
+                            <li class="breadcrumb-item"><a href="{{ route('listAttendances') }}">Kehadiran</a></li>
+                            <li class="breadcrumb-item active">Detail Kehadiran</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -29,24 +29,24 @@
 
         <!-- Main content -->
         <div class="container mt-5">
-            <h1 class="mt-5">Attendance Details</h1>
+            <h1 class="mt-5">Detail Siswa</h1>
             <div class="card">
                 <div class="card-body">
                     <table class="table table-bordered">
                         <tr>
-                            <th>Student</th>
+                            <th>Nama Siswa</th>
                             <td>{{ $attendance->student->name }}</td>
                         </tr>
                         <tr>
-                            <th>Student ID</th>
+                            <th>Nomor Induk Siswa</th>
                             <td>{{ $attendance->student->student_id }}</td>
                         </tr>
                         <tr>
-                            <th>Class</th>
+                            <th>Kelas</th>
                             <td>{{ $attendance->student->class }}</td>
                         </tr>
                         <tr>
-                            <th>Date</th>
+                            <th>Tanggal</th>
                             <td>{{ Carbon::parse($attendance->date)->format('d-m-Y') }}</td>
                         </tr>
                         <tr>
@@ -55,7 +55,7 @@
                         </tr>
                     </table>
                     <br>
-                    <a href="{{ route('listAttendances') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ route('listAttendances') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </div>
         </div>

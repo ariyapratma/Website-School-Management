@@ -6,17 +6,6 @@
 
 @section('addCss')
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
-    <style>
-        .action-buttons {
-            display: flex;
-            justify-content: space-around;
-        }
-
-        .action-buttons a,
-        .action-buttons button {
-            margin: -6.5px;
-        }
-    </style>
 @endsection
 
 @section('addJavascript')
@@ -63,7 +52,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Attendances</li>
+                            <li class="breadcrumb-item active">Kehadiran</li>
                         </ol>
                     </div>
                 </div>
@@ -75,8 +64,8 @@
         <div class="content">
             <div class="container mt-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1>Attendances Students SMK Gamelab</h1>
-                    <a href="{{ route('createAttendances') }}" class="btn btn-primary">Add Attendance</a>
+                    <h1>Kehadiran Siswa SMK Gamelab</h1>
+                    <a href="{{ route('createAttendances') }}" class="btn btn-primary">Tambah Kehadiran</a>
                 </div>
 
                 <div class="card">
@@ -85,12 +74,12 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Student</th>
-                                    <th>Student ID</th>
-                                    <th>Class</th>
-                                    <th>Date</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Nomor Induk Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Tanggal</th>
                                     <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -104,12 +93,18 @@
                                         <td>{{ $attendance->status }}</td>
                                         <td class="action-buttons">
                                             <a href="{{ route('showAttendances', $attendance) }}"
-                                                class="btn btn-info btn-sm">View</a>
+                                                class="btn btn-info btn-sm">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
                                             <a href="{{ route('editAttendances', $attendance) }}"
-                                                class="btn btn-warning btn-sm">Edit</a>
+                                                class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                             <a href="#" onclick="confirmDelete(this)"
                                                 data-url="{{ route('deleteAttendances', ['attendance' => $attendance->id]) }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
+                                                class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

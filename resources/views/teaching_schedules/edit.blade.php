@@ -15,9 +15,10 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listTeachingschedules') }}">Teaching Schedules</a>
+                            <li class="breadcrumb-item"><a href="{{ route('listTeachingschedules') }}">Jadwal Mengajar
+                                    Guru</a>
                             </li>
-                            <li class="breadcrumb-item active">Edit Teaching Schedule</li>
+                            <li class="breadcrumb-item active">Edit Jadwal Mengajar Guru</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -28,13 +29,14 @@
         <!-- Main content -->
         <div class="content">
             <div class="container mt-5">
-                <h1 class="mt-5">Edit Teaching Schedule</h1>
+                <h1 class="mt-5">Edit Jadwal Mengajar Guru</h1>
                 <form action="{{ route('updateTeachingschedules', $teachingSchedule->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="teacher_name">Teacher</label>
+                        <label for="teacher_name">Nama Guru <span class="text-danger">*</span></label>
                         <select name="teacher_name" id="teacher_name" class="form-control">
+                            <option selected disabled>Pilih Nama Guru</option>
                             @foreach ($teachers as $teacher)
                                 <option value="{{ $teacher->id }}"
                                     {{ $teacher->id == $teachingSchedule->teacher_id ? 'selected' : '' }}>
@@ -43,8 +45,9 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="teacher_id">Teacher ID</label>
+                        <label for="teacher_id">Nomor Unik Guru <span class="text-danger">*</span></label>
                         <select name="teacher_id" id="teacher_id" class="form-control">
+                            <option selected disabled>Pilih Nomor Unik Guru</option>
                             @foreach ($teachers as $teacher)
                                 <option value="{{ $teacher->id }}"
                                     {{ $teacher->id == $teachingSchedule->teacher_id ? 'selected' : '' }}>
@@ -53,12 +56,13 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="subject">Subject</label>
+                        <label for="subject">Subyek <span class="text-danger">*</span></label>
                         <input type="text" name="subject" id="subject" class="form-control"
                             value="{{ $teachingSchedule->subject }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="teaching_day">Teaching Day</label>
+                        <label for="teaching_day">Hari Mengajar <span class="text-danger">*</span></label>
+                        <option selected disabled>Pilih Hari Mengajar</option>
                         <select name="teaching_day" id="teaching_day" class="form-control" required>
                             <option value="Monday" {{ $teachingSchedule->teaching_day == 'Monday' ? 'selected' : '' }}>
                                 Monday</option>
@@ -77,17 +81,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="start_time">Start Time</label>
+                        <label for="start_time">Waktu Mulai <span class="text-danger">*</span></label>
                         <input type="time" name="start_time" id="start_time" class="form-control"
                             value="{{ $teachingSchedule->start_time }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="end_time">End Time</label>
+                        <label for="end_time">Waktu Selesai <span class="text-danger">*</span></label>
                         <input type="time" name="end_time" id="end_time" class="form-control"
                             value="{{ $teachingSchedule->end_time }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('listTeachingschedules') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ route('listTeachingschedules') }}" class="btn btn-secondary">Kembali</a>
                 </form>
             </div>
         </div>

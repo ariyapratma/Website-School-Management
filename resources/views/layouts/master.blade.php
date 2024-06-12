@@ -15,6 +15,12 @@
   @yield('addCss')
   <script src="{{ asset('js/sweetalert.min.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   @yield('addCss')
 </head>
 
@@ -103,8 +109,8 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  {{-- <aside class="main-sidebar sidebar-light-primary elevation-4"> --}}
-    <aside class="main-sidebar sidebar-light-primary elevation-4" style="width: 265px;">
+  <aside class="main-sidebar sidebar-light-primary elevation-4">
+    {{-- <aside class="main-sidebar sidebar-light-primary elevation-4" style="width: 265px;"> --}}
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link">
       <img src="{{ asset('assets/dist/img/Smk_Gamelab.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">

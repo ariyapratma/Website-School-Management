@@ -9,16 +9,13 @@
 @section('addCss')
     <link rel="stylesheet" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
     <style>
-        .action-buttons {
-            display: flex;
-            justify-content: space-around;
+        .modal-close-btn {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 1051; /* Set higher z-index */
         }
-
-        .action-buttons a,
-        .action-buttons button {
-            margin: 0 2px;
-        }
-    </style>
+    </style>    
 @endsection
 
 @section('addJavascript')
@@ -29,6 +26,11 @@
         $(function() {
             $("#data-table").DataTable();
         });
+
+        // Function to handle import modal opening
+        function openImportModal() {
+            $('#importModal').modal('show');
+        }
     </script>
     <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script>
@@ -64,7 +66,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Students</li>
+                            <li class="breadcrumb-item active">Siswa</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -75,11 +77,10 @@
         <div class="content">
             <div class="container mt-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1>Students SMK Gamelab</h1>
+                    <h1>Siswa SMK Gamelab</h1>
                     <div>
-                        <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#importModal">Import
-                            Excel</button>
-                        <a href="{{ route('createStudents') }}" class="btn btn-primary">Add Student</a>
+                        <button class="btn btn-primary mr-2" onclick="openImportModal()">Import Excel</button>
+                        <a href="{{ route('createStudents') }}" class="btn btn-primary">Tambah Siswa</a>
                     </div>
                 </div>
 
@@ -112,6 +113,7 @@
                     </div>
                 </div>
 
+
                 <!-- Data Table -->
                 <div class="card">
                     <div class="card-body">
@@ -119,13 +121,13 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Name</th>
-                                    <th>Student ID</th>
-                                    <th>Class</th>
-                                    <th>Birth Date</th>
-                                    <th>Address</th>
-                                    <th>Phone Number</th>
-                                    <th>Actions</th>
+                                    <th>Nama Siswa</th>
+                                    <th>Nomor Induk Siswa</th>
+                                    <th>Kelas</th>
+                                    <th>Tanggal Kelahiran</th>
+                                    <th>Alamat</th>
+                                    <th>Nomor Telepon</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -139,13 +141,17 @@
                                         <td>{{ $student->address }}</td>
                                         <td>{{ $student->phone_number }}</td>
                                         <td class="action-buttons">
-                                            <a href="{{ route('showStudents', $student) }}"
-                                                class="btn btn-info btn-sm">View</a>
-                                            <a href="{{ route('editStudents', $student) }}"
-                                                class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="{{ route('showStudents', $student) }}" class="btn btn-info btn-sm">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('editStudents', $student) }}" class="btn btn-warning btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
                                             <a href="#" onclick="confirmDelete(this)"
                                                 data-url="{{ route('deleteStudents', ['student' => $student->id]) }}"
-                                                class="btn btn-danger btn-sm">Delete</a>
+                                                class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
                                             <!-- Form Delete -->
                                             <form id="delete-form" method="POST" style="display: none;">
                                                 @csrf

@@ -16,8 +16,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('listStudents') }}">Students</a></li>
-                            <li class="breadcrumb-item active">Edit Student</li>
+                            <li class="breadcrumb-item"><a href="{{ route('listStudents') }}">Siswa</a></li>
+                            <li class="breadcrumb-item active">Edit Siswa</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -27,42 +27,46 @@
         <!-- Main content -->
         <div class="content">
             <div class="container mt-5">
-                <h1 class="mb-4">Edit Student</h1>
+                <h1 class="mt-5">Edit Siswa</h1>
                 <form action="{{ route('updateStudents', $student) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Nama Siswa <span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control"
                             value="{{ $student->name }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="student_id">Student ID</label>
+                        <label for="student_id">Nomor Induk Siswa <span class="text-danger">*</span></label>
                         <input type="text" name="student_id" id="student_id" class="form-control"
                             value="{{ $student->student_id }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="class">Class</label>
-                        <input type="text" name="class" id="class" class="form-control"
-                            value="{{ $student->class }}" required>
+                        <label for="class">Kelas <span class="text-danger">*</span></label>
+                        <select class="form-control" id="class" name="class" required>
+                            <option selected disabled>Pilih Kelas</option>
+                            <option value="10" {{ $student->class == 10 ? 'selected' : '' }}>10</option>
+                            <option value="11" {{ $student->class == 11 ? 'selected' : '' }}>11</option>
+                            <option value="12" {{ $student->class == 12 ? 'selected' : '' }}>12</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="birth_date">Birth Date</label>
+                        <label for="birth_date">Tanggal Lahir <span class="text-danger">*</span></label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control"
                             value="{{ $student->birth_date }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address</label>
+                        <label for="address">Alamat <span class="text-danger">*</span></label>
                         <input type="text" name="address" id="address" class="form-control"
                             value="{{ $student->address }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone_number">Phone Number</label>
+                        <label for="phone_number">Nomor Telepon <span class="text-danger">*</span></label>
                         <input type="text" name="phone_number" id="phone_number" class="form-control"
                             value="{{ $student->phone_number }}" required>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ route('listStudents') }}" class="btn btn-secondary">Back</a>
+                    <a href="{{ route('listStudents') }}" class="btn btn-secondary">Kembali</a>
                 </form>
             </div>
         </div>

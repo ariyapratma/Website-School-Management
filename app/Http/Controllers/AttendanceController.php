@@ -34,7 +34,7 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'student_id' => 'required|exists:students,id',
+            'student_id' => 'required',
             'date' => 'required|date',
             'status' => 'required|in:Present,Absent,Late,Excused',
         ]);
@@ -68,7 +68,7 @@ class AttendanceController extends Controller
     public function update(Request $request, Attendances $attendance)
     {
         $request->validate([
-            'student_id' => 'required|exists:students,id',
+            'student_id' => 'required',
             'date' => 'required|date',
             'status' => 'required|in:Present,Absent,Late,Excused',
         ]);
